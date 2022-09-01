@@ -9,9 +9,12 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    personal-conf= {
+      url = "github:marnyg/nixos";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils, personal-conf, ... }:
     {
 
       nixosModules.wsl = {
@@ -29,7 +32,9 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-        ];
+        #  personal-conf.nixosConfigurations.mar-wsl
+        #];
+        ] ++ personal-conf.nixosConfigurations.mar-wsl.modules;
       };
 
     } //
